@@ -67,7 +67,7 @@ class CartController extends Controller
         return (new CartResource($item))->response();
     }
 
-    public function setCartProductQuantity(SetCartProductQuantityRequest $request)
+    public function setCartProductQuantity(SetCartProductQuantityRequest $request): JsonResponse
     {
         $data = $request->getData();
         $product = $this->productRepository->find($data);
