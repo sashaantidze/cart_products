@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Data\CartProductData;
-use App\Data\FindProductData;
 use App\Models\Product;
 use App\Repositories\Contracts\ProductRepositoryContract;
 

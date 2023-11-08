@@ -11,7 +11,6 @@ class AddProductInCartRequest extends FormRequest
     {
         return [
             'product_id' => 'required|integer|exists:products,id',
-            //'quantity' => 'required|integer|min:1,max:10',
         ];
     }
 
@@ -19,7 +18,7 @@ class AddProductInCartRequest extends FormRequest
     {
         $data = $this->validated();
 
-        $data['user_id'] = 1;
+        $data['user_id'] = 1; // hardcoded for now as no authentication is implemented
         $data['quantity'] = 1;
 
         return CartProductData::from($data);

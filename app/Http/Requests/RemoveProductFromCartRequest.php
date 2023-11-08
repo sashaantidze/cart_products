@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Data\CartProductData;
-use App\Data\FindProductData;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RemoveProductFromCartRequest extends FormRequest
