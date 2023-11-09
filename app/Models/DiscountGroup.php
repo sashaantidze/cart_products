@@ -30,7 +30,7 @@ class DiscountGroup extends Model
             'group_id',
             'id',
             'id',
-            'id'
+            'product_id'
         );
     }
 

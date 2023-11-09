@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Data\CartProductData;
 use App\Exceptions\ProductNotFoundInCartException;
 use App\Http\Requests\AddProductInCartRequest;
+use App\Http\Requests\GetUserCartRequest;
 use App\Http\Requests\RemoveProductFromCartRequest;
 use App\Http\Requests\SetCartProductQuantityRequest;
 use App\Http\Resources\CartResource;
+use App\Models\DiscountGroup;
+use App\Models\User;
 use App\Repositories\Contracts\CartRepositoryContract;
 use App\Repositories\Contracts\ProductRepositoryContract;
+use App\Services\ProductDiscountService;
 use Illuminate\Http\JsonResponse;
 
 class CartController extends Controller
@@ -85,5 +89,19 @@ class CartController extends Controller
         $item = $this->cartRepository->updateOrCreate($data);
 
         return (new CartResource($item))->response();
+    }
+
+    public function getUserCart(GetUserCartRequest $request)
+    {
+        $user = User::find($request->getData()->user_id);
+
+        $discountGroup = DiscountGroup::first();
+
+        $ds = new ProductDiscountService($user->cart, $discountGroup);
+
+        //dd($ds->shouldApplyDiscount());
+
+        $ds->calculateTotalDiscount();
+
     }
 }

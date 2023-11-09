@@ -15,9 +15,9 @@ class Product extends Model
         'price',
     ];
 
-    public function user(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function cart(): BelongsTo

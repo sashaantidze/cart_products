@@ -23,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('cart/addProductInCart', [CartController::class, 'addProductInCart']);
 Route::post('cart/removeProductFromCart', [CartController::class, 'removeProductFromCart']);
 Route::post('cart/setCartProductQuantity', [CartController::class, 'setCartProductQuantity']);
+Route::get('cart/getUserCart', [CartController::class, 'getUserCart']);
