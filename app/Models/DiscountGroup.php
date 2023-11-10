@@ -17,6 +17,7 @@ class DiscountGroup extends Model
         'discount'
     ];
 
+    // might not need, remove later if so
     public function groupItems(): HasMany
     {
         return $this->hasMany(DiscountGroupItem::class, 'group_id');

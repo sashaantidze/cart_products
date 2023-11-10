@@ -21,6 +21,7 @@ class CartController extends Controller
     public function __construct(
         protected CartRepositoryContract $cartRepository,
         protected ProductRepositoryContract $productRepository,
+        protected DiscountGroup $discountGroup,
     ){
 
     }
@@ -95,13 +96,11 @@ class CartController extends Controller
     {
         $user = User::find($request->getData()->user_id);
 
-        $discountGroup = DiscountGroup::first();
+        $ds = new ProductDiscountService($user->cart, $this->discountGroup->first());
 
-        $ds = new ProductDiscountService($user->cart, $discountGroup);
+        dd($ds->renderUserCart());
 
-        //dd($ds->shouldApplyDiscount());
-
-        $ds->calculateTotalDiscount();
+        //dd($ds->shouldApplyDiscount(), $ds->calculateTotalDiscount());
 
     }
 }
