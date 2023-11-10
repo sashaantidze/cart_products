@@ -15,6 +15,9 @@ class ProductDiscountService
     ){
         $this->cartItems->load('product');
         $this->discountGroup->load('itemProducts');
+
+        $this->calculateTotalDiscount();
+
     }
 
     public function shouldApplyDiscount(): bool
@@ -53,26 +56,8 @@ class ProductDiscountService
          $this->totalCalculatedDiscount = $totalCalculatedDiscount;
     }
 
-    public function renderUserCart(): Collection
+    public function getTotalDiscount(): float|int
     {
-        $userCartCollection = new Collection();
-
-        $this->calculateTotalDiscount();
-
-        $this->cartItems->each(function ($cartItem) use ($userCartCollection){
-            $cartArray = [
-                'product_id' => $cartItem->product_id,
-                'quantity' => $cartItem->getQuantity(),
-                'price' => $cartItem->product->getPrice(),
-            ];
-
-            $userCartCollection->add($cartArray);
-        });
-
-        $userCartCollection->put('discount', $this->totalCalculatedDiscount);
-
-        return $userCartCollection;
-
-        //dd($userCartCollection);
+        return $this->totalCalculatedDiscount;
     }
 }

@@ -34,4 +34,9 @@ class Cart extends Model
     {
         return $this->quantity;
     }
+
+    public function getProductId(): int
+    {
+        return $this->product_id;
+    }
 }

@@ -9,6 +9,7 @@ use App\Http\Requests\GetUserCartRequest;
 use App\Http\Requests\RemoveProductFromCartRequest;
 use App\Http\Requests\SetCartProductQuantityRequest;
 use App\Http\Resources\CartResource;
+use App\Http\Resources\DiscountResource;
 use App\Models\DiscountGroup;
 use App\Models\User;
 use App\Repositories\Contracts\CartRepositoryContract;
@@ -92,15 +93,12 @@ class CartController extends Controller
         return (new CartResource($item))->response();
     }
 
-    public function getUserCart(GetUserCartRequest $request)
+    public function getUserCart(GetUserCartRequest $request): JsonResponse
     {
         $user = User::find($request->getData()->user_id);
 
-        $ds = new ProductDiscountService($user->cart, $this->discountGroup->first());
+        $discountService = new ProductDiscountService($user->cart, $this->discountGroup->first());
 
-        dd($ds->renderUserCart());
-
-        //dd($ds->shouldApplyDiscount(), $ds->calculateTotalDiscount());
-
+        return (new DiscountResource($discountService->getTotalDiscount(), $user->cart))->response();
     }
 }
