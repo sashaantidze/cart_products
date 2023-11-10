@@ -16,7 +16,7 @@ class GetUserCartRequest extends FormRequest
     {
         $data = $this->validated();
 
-        $data['user_id'] = 2;
+        $data['user_id'] = 2; // hardcoded userid, assume this is auth user
 
         return CartProductData::from($data);
     }

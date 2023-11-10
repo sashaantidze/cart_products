@@ -44,8 +44,8 @@ class ProductDiscountService
             $discountItem = $indexedDiscountItems[$cartItem->product_id] ?? null;
 
             if ($discountItem) {
-                $totalNonDiscountedPrice = $discountItem->price * $minQuantity;
-                $singleDiscountedItem = $discountItem->price - ($discountItem->price * $groupDiscount / 100);
+                $totalNonDiscountedPrice = $discountItem->getPrice() * $minQuantity;
+                $singleDiscountedItem = $discountItem->getPrice() - ($discountItem->price * $groupDiscount / 100);
 
                 $totalDiscount = $totalNonDiscountedPrice - ($singleDiscountedItem * $minQuantity);
 
@@ -58,6 +58,6 @@ class ProductDiscountService
 
     public function getTotalDiscount(): float|int
     {
-        return $this->totalCalculatedDiscount;
+        return round($this->totalCalculatedDiscount,1);
     }
 }
